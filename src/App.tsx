@@ -1,13 +1,24 @@
 import { useState } from 'react'
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+import HomePage from './pages/Home'
+import LoginPage from './pages/Login'
+import RegisterPage from './pages/Register'
+import Navbar from './components/Navbar'
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
-    <div className='p-20'>
-      <h1>Hello World!</h1>
-      <button className='bg-slate-400 hover:bg-slate-500 active:bg-slate-600 px-6 py-2 rounded cursor-pointer text-white font-bold' onClick={() => setCount(count + 1)}>Count : {count}</button>
-    </div>
+    <>
+      <Router>
+          <Navbar />
+          <Routes>
+            <Route path='/' element={<HomePage />}/>
+            <Route path='/login' element={<LoginPage />}/>
+            <Route path='/register' element={<RegisterPage />}/>
+          </Routes>
+      </Router>
+    </>
   )
 }
 
