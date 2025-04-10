@@ -5,7 +5,7 @@ const LoginPage = () => {
   return (
     <div  style={{ backgroundImage: `url(${bg_login})` }}
     className=" bg-cover bg-center min-h-screen bg-fixed py-20">
-      <AuthCard login={true}/>
+      <AuthCard isLogin={true}/>
     </div>
   )
 }
