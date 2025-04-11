@@ -25,7 +25,7 @@ const bantuan : string[] = ["FAQ", "Kontak Kami", "Privasi", "Syarat & Ketentuan
 const Footer = () => {
 
     const location = useLocation()
-    const disableFooter = ["/login", "/register", "/watch"]
+    const disableFooter = ["/login", "/register", "/watch", "/404"]
 
     const [showGenre, setShowGenre] = useState<boolean>(false)
     const [showBantuan, setShowBantuan] = useState<boolean>(false)

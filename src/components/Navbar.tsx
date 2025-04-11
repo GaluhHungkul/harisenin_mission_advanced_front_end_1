@@ -53,7 +53,7 @@ const navigate : navigate[] = [
 const Navbar = () => {
 
     const location = useLocation()
-    const disableNavbar = ["/login", "/register", "/watch"]
+    const disableNavbar = ["/login", "/register", "/watch", "/404"]
 
     const [showProfile, setShowProfile] = useState(false)
 
@@ -75,7 +75,6 @@ const Navbar = () => {
                         <Link to={item.href}>{item.name}</Link>
                     </li>
                 ) )}
-                
             </ul>
         </div>
         <div className="relative items-center flex gap-4 cursor-pointer lg:scale-150 " onClick={() => setShowProfile(!showProfile)}>
@@ -83,7 +82,7 @@ const Navbar = () => {
             <FontAwesomeIcon icon={faChevronDown} className={`${showProfile && "rotate-180"} duration-300 `} color="#fff" />
         </div>
         {showProfile &&
-            <div className={`fixed text-white  p-5 right-3 top-12 rounded  w-max gap-2 flex flex-col bg-primary text-[10px] lg:text-[18px] lg:right-4 lg:top-20`}>
+            <div className={`absolute text-white  p-5 right-3 top-12 rounded  w-max gap-2 flex flex-col bg-primary text-[10px] lg:text-[18px] lg:right-4 lg:top-20`}>
                 {profileNavigate.map((item, index) => (
                     <Link to={item.href} key={index} className="flex items-center hover:text-blue-500">
                         <FontAwesomeIcon icon={item.icon} />
