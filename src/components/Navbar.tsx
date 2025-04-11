@@ -26,7 +26,7 @@ const profileNavigate : navigateProfile[]  = [
     {
         icon : faStar,
         name : "Ubah Premium",
-        href : "/"
+        href : "/subscription"
     },
     {
         icon : faRightFromBracket,

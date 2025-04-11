@@ -19,7 +19,7 @@ const ModalHoverFilm : FC<Props> = ({img, index, dataLength, title }) => {
       <div className="bg-primary h-1/2 px-8 py-6">
           <section className="flex justify-between mb-5">
             <div className="flex gap-4">
-              <Link to={`/watch?isPremium=${index % 2 == 0}`} onClick={(e) => e.stopPropagation()} className="bg-white  rounded-full px-4 py-3  border hover:bg-primary hover:text-white hover:border duration-300 text-primary cursor-pointer">
+              <Link to={`/watch?episode=1`} onClick={(e) => e.stopPropagation()} className="bg-white  rounded-full px-4 py-3  border hover:bg-primary hover:text-white hover:border duration-300 text-primary cursor-pointer">
                 <FontAwesomeIcon icon={faPlay} size="lg" />
               </Link>
               <button className="bg-primary border  rounded-full px-4 py-3  hover:bg-white hover:text-primary duration-300 cursor-pointer ">

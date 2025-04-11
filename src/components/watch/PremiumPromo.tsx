@@ -1,6 +1,7 @@
 import { faClosedCaptioning, faDisplay, faDownload, faFilm, faRectangleAd, faStar, faTv } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 const alasanBerlangganan = [
   {
@@ -33,12 +34,14 @@ const PremiumPromoButton = () => {
 
   const [showPromo, setShowPromo] = useState<boolean>(false)
 
+  const navigate = useNavigate()
+
   return (
     <div className="absolute size-full">
       <button onClick={() => setShowPromo(!showPromo)} className="absolute z-[101]    top-42 right-5 lg:top-5 lg:right-8 text-white cursor-pointer hover:text-yellow-400">
           <FontAwesomeIcon icon={faStar} className="text-xl lg:text-2xl "/>
       </button>
-      <div className={`absolute size-full z-[100] bg-black/80 ${showPromo ? "translate-y-full" : "-translate-y-0"} duration-300 text-white flex flex-col items-center justify-center text-center`}>
+      <div className={`absolute size-full z-[100] bg-black/80 ${!showPromo ? "translate-y-full" : "-translate-y-0"} duration-300 text-white flex flex-col items-center justify-center text-center`}>
         <section className="lg:mb-20">
           <h1 className="font-bold mb-1 text-base lg:text-3xl lg:mb-2">Layanan Premium 🌟</h1>
           <p className="text-sm lg:text-base">Tingkatkan paket anda untuk dapat menonton video ini.</p>
@@ -53,7 +56,7 @@ const PremiumPromoButton = () => {
               </div>
             ))}
           </div>
-          <button className="bg-blue-900 mt-4 text-[10px] lg:text-base px-3 p-1 lg:px-4 lg:py-1 rounded-full lg:mt-10 cursor-pointer hover:bg-blue-800 active:bg-blue-700">Ubah Jadi Premium</button>
+          <button onClick={() => navigate("/subscription")} className="bg-blue-900 mt-4 text-[10px] lg:text-base px-3 p-1 lg:px-4 lg:py-1 rounded-full lg:mt-10 cursor-pointer hover:bg-blue-800 active:bg-blue-700">Ubah Jadi Premium</button>
         </section>
       </div>
     </div>

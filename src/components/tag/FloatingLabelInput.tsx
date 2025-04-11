@@ -23,7 +23,7 @@ const FloatingLabelInput: React.FC<FloatingLabelInputProps> = ({
   ...props
 }) => {
   return (
-    <div className={`relative w-full ${className} bg-[#22282A]`}>
+    <div className={`relative w-full text-white  ${className} bg-[#22282A]`}>
       {showIcon && (
         <FontAwesomeIcon
           icon={faPen}

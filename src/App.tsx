@@ -9,11 +9,13 @@ import Series from "./pages/Series"
 import Film from "./pages/Film"
 import Watch from "./pages/Watch"
 import MyProfile from "./pages/MyProfile"
+import Subscription from "./pages/Subscription"
+import PembayaranSubscription from "./pages/PembayaranSubscription"
 
 function App() {
 
   return (
-    <div className='bg-primary  overflow-x-hidden relative'>
+    <div className='bg-primary  overflow-x-hidden relative '>
       <Router>
           <Navbar />
           <Routes>
@@ -25,6 +27,8 @@ function App() {
             <Route path='/film' element={<Film />}/>
             <Route path='/watch' element={<Watch />}/>
             <Route path="/myprofile" element={<MyProfile />}/>
+            <Route path="/subscription" element={<Subscription />}/>
+            <Route path="/subscription/pembayaran" element={<PembayaranSubscription />}/>
           </Routes>
           <Footer />
       </Router>

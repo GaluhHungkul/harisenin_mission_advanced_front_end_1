@@ -35,7 +35,7 @@ const Footer = () => {
     {!disableFooter.includes(location.pathname) && 
     <footer className="p-5 flex flex-col gap-10 border-t border-gray-600 lg:py-[60px] lg:px-20 lg:flex-row  ">
     <div>
-        <img src="assets/img/others/logo_desktop.png"  className="w-20 h-9 mb-4 lg:w-36 lg:h-16" alt="" />
+        <img src="assets/img/others/logo_desktop.png"  className="w-20 h-9 mb-4 lg:w-36 text-white lg:h-16" alt="Logo" />
         <p style={{color: "#C1C2C4"}} className="text-[12px] lg:text-[16px]">@2023 Chill All Rights Reserved.</p>
     </div>
     <div className="lg:flex lg:justify-evenly lg:ml-28  lg:w-3/4 lg:gap-20 ">
