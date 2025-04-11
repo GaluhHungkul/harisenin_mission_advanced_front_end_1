@@ -1,5 +1,3 @@
-import React from 'react'
-
 const SubscriptionOn = () => {
   return (
     <div className="bg-gradient-to-br from-blue-500 to-blue-700/80  absolute top-4 w-[90%] rounded-xl  right-1/2 translate-x-1/2 h-[191px]  px-4 py-6 gap-6 lg:static lg:translate-x-0 lg:flex-1 ">
