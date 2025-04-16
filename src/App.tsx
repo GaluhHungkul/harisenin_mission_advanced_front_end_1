@@ -12,6 +12,7 @@ import MyProfile from "./pages/MyProfile"
 import Subscription from "./pages/Subscription"
 import PembayaranSubscription from "./pages/PembayaranSubscription"
 import NotFound from "./pages/NotFound"
+import Testing from "./pages/Testing"
 
 function App() {
 
@@ -21,6 +22,7 @@ function App() {
           <Navbar />
           <Routes>
             <Route path='/' element={<HomePage />}/>
+            <Route path='/home' element={<HomePage />}/>
             <Route path='/login' element={<LoginPage />}/>
             <Route path='/register' element={<RegisterPage />}/>
             <Route path='/daftarsaya' element={<DaftarSaya />}/>
@@ -30,6 +32,7 @@ function App() {
             <Route path="/myprofile" element={<MyProfile />}/>
             <Route path="/subscription" element={<Subscription />}/>
             <Route path="/subscription/pembayaran" element={<PembayaranSubscription />}/>
+            <Route path="/testing" element={<Testing />}/>
             <Route path="/404" element={<NotFound />}/>
             <Route path="*" element={<Navigate to="/404" replace />}/>
           </Routes>
