@@ -5,15 +5,15 @@ import { ListDataPerPage } from "@/types/allTypes";
 
 const ListDataHomePage: ListDataPerPage[] = [
   {
-    title: "Film Trending",
+    title: "Melanjutkan Tonton Film",
     query: "/trending/movie/day",
   },
   {
-    title: "Melanjutkan Tonton Film",
+    title: "Top Rating Film dan Series Hari ini",
     query: "/movie/popular",
   },
   {
-    title: "Top Rating Film dan Series Hari ini",
+    title: "Film Trending",
     query: "/movie/top_rated",
   },
   {

@@ -4,20 +4,24 @@ import GroupedFilmList from "@/components/common/GroupedFilmList";
 
 const ListDataFilmPage: ListDataPerPage[] = [
   {
-    title: "Film Trending",
+    title: "Melanjutkan Tonton Film",
     query: "/trending/all/day",
   },
   {
-    title: "Melanjutkan Tonton Film",
+    title: "Film Persembahan Chill",
     query: "/discover/movie?sort_by=popularity.desc&with_genres=35",
   },
   {
-    title: "Top Rating Film dan Series Hari ini",
+    title: "Top Rating Film Hari ini",
     query: "/discover/movie?sort_by=popularity.desc&with_genres=878",
   },
   {
-    title: "Rilis baru",
+    title: "Film Trending",
     query: "/discover/movie?sort_by=popularity.desc&with_genres=9648 ",
+  },
+  {
+    title: "Rilis baru",
+    query: "/discover/movie?sort_by=popularity.desc&with_genres=16 ",
   },
 ];
 const Film = () => {

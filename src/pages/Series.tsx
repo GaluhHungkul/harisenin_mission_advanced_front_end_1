@@ -5,15 +5,19 @@ import { ListDataPerPage } from "@/types/allTypes";
 
 const ListDataSeriesPage: ListDataPerPage[] = [
   {
-    title: "Film Trending",
+    title: "Melanjutkan Tonton Series",
     query: "/tv/popular",
   },
   {
-    title: "Melanjutkan Tonton Film",
+    title: "Series Persembahan Chill",
     query: "/discover/movie?sort_by=popularity.desc&with_genres=28",
   },
   {
-    title: "Top Rating Film dan Series Hari ini",
+    title: "Top Rating Series Hari ini",
+    query: "/movie/popular",
+  },
+  {
+    title: "Series Trending",
     query: "/tv/top_rated",
   },
   {
