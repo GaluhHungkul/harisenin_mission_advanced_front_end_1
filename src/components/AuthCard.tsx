@@ -21,7 +21,7 @@ const AuthCard: FC<Props> = ({isLogin}) => {
       email : "william1980@gmail.com"
     }))
     console.log(JSON.parse(localStorage.getItem("user")))
-    navigate("/")
+    navigate(isLogin ? "/" : "/login")
   }
 
   return (
