@@ -5,7 +5,7 @@ const RegisterPage = () => {
   return (
     <div
       style={{ backgroundImage: `url(${bg_register})` }}
-      className=" bg-cover bg-center py-20 bg-no-repeat"
+      className=" bg-cover bg-center py-20 bg-no-repeat lg:py-5"
     >
      <AuthCard isLogin={false}/>
     </div>

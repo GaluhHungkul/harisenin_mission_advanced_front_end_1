@@ -21,7 +21,7 @@ const profileNavigate : navigateProfile[]  = [
     {
         icon : faUser,
         name : "Profil Saya",
-        href : "/myprofile"
+        href : "/myprofile?isSubscribe=false"
     },
     {
         icon : faStar,
@@ -31,7 +31,7 @@ const profileNavigate : navigateProfile[]  = [
     {
         icon : faRightFromBracket,
         name : "Keluar",
-        href : "/"
+        href : "/login"
     }
 ]
 

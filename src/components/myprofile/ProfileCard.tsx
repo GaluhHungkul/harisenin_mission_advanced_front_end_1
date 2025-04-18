@@ -5,9 +5,15 @@ import { useState } from "react"
 
 const ProfileCard = () => {
 
-    const [namaPengguna, setNamaPengguna] = useState<string>("William")
-    const [email, setEmail] = useState<string>("william1980@gmail.com")
-    const [kataSandi, setKataSandi] = useState<string>("acumalaka123")
+    const storedUser = JSON.parse(localStorage.getItem("user") ?? "{}");
+    
+    const [namaPengguna, setNamaPengguna] = useState<string>(
+      storedUser.namaPengguna?.trim() ? storedUser.namaPengguna : "William"
+    );
+    const [email, setEmail] = useState<string>(JSON.parse(localStorage.getItem("user"))?.email ?? "william1980@gmail.com")
+    const [kataSandi, setKataSandi] = useState<string>(storedUser.kataSandi?.trim() ? storedUser.kataSandi : "acumalaka123")
+
+    const handleSaveProfile = () => localStorage.setItem("user", JSON.stringify({ namaPengguna, email, kataSandi }))
 
   return (
     <div className=" lg:flex-1 ">
@@ -22,7 +28,7 @@ const ProfileCard = () => {
             <FloatingLabelInput showIcon label="Nama Pengguna" value={namaPengguna} onChange={(e) => setNamaPengguna(e.target.value)} type="text" id="namaPengguna"/>
             <FloatingLabelInput showIcon label="Nama Pengguna" value={email} onChange={(e) => setEmail(e.target.value)} type="text" id="email"/>
             <FloatingLabelInput showIcon label="Nama Pengguna" value={kataSandi} onChange={(e) => setKataSandi(e.target.value)} type="password" id="kataSandi"/>
-            <button className="bg-blue-900 px-4 py-1 rounded-full cursor-pointer hover:brightness-90 active:brightness-75">Simpan</button>
+            <button onClick={handleSaveProfile} className="bg-blue-900 px-4 py-1 rounded-full cursor-pointer hover:brightness-90 active:brightness-75">Simpan</button>
         </main>
     </div>
   )

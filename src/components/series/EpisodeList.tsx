@@ -13,10 +13,10 @@ type Props = {
 const EpisodeList: FC<Props> = ({data}) => {
   return (
     <div className='mt-4 lg:text-lg'>
-        <h1 className='text-sm'>Episode</h1>
+        <h1 className='text-sm lg:text-xl'>Episode</h1>
         <div className="mt-2 space-y-2">
             {data.map((episode, index) => (
-                <section key={index} className=' flex items-center rounded py-1 gap-4 px-2  bg-primary hover:bg-[#424242] lg:py-2 lg:gap-6 group' >
+                <section key={index} className=' flex items-center rounded py-1 gap-4 px-2  bg-primary hover:bg-[#424242] lg:py-2 lg:gap-6 group cursor-pointer' >
                     <span>{episode.episode}</span>
                     <div className='w-[58px] h-8 bg-cover bg-center lg:w-44 lg:h-24' style={{ backgroundImage : `url(${episode.img})` }}></div>
                     <div className='space-y-1  lg:flex-1 lg:h-24'>

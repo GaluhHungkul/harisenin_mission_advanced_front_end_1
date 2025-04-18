@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons"
+import { useNavigate } from "react-router-dom"
 
 const listGenre : string[] = [ 
     "Aksi",
@@ -24,8 +25,10 @@ const SelectGenre = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [selected, setSelected] = useState<string>("Genre")
 
+  const navigate = useNavigate()
+
   return (
-    <div className="hidden absolute w-40 left-32 top-14 lg:block">
+    <div className="hidden absolute w-40 left-27  top-12 right-1/2 z-10 lg:block">
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="bg-primary w-full text-white py-2 px-4 font-semibold rounded focus:outline-none cursor-pointer flex justify-between items-center" 
@@ -41,6 +44,7 @@ const SelectGenre = () => {
               onClick={() => {
                 setSelected(genre);
                 setIsOpen(false);
+                navigate(`?genre=${genre}`, { replace : false })
               }}
               className="hover:bg-[#3D4142]  py-2 px-4 cursor-pointer"
             >

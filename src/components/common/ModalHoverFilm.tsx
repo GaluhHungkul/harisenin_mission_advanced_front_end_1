@@ -5,15 +5,13 @@ import { Link } from "react-router-dom";
 
 type Props = {
   img : string;
-  index : number;
-  dataLength : number;
   title : string;
 }
 
-const ModalHoverFilm : FC<Props> = ({img, index, dataLength, title }) => { 
+const ModalHoverFilm : FC<Props> = ({img, title }) => { 
 
   return (
-    <div style={{ boxShadow : "0 0 10px  2px  #1C1E20" }} className={`absolute z-[-1] overflow-hidden hidden   w-[408px] h-[460px] text-white duration-300 opacity-0  group-hover:z-50 group-hover:-translate-y-10 bottom-0 group-hover:opacity-100  rounded-lg  ${index === dataLength - 1 || index === 0 ? (index === dataLength - 1 ? "right-0" : "left-0") : "right-1/2 translate-x-1/2"} lg:block`}>
+    <div style={{ boxShadow : "0 0 10px  2px  #1C1E20" }} className={`absolute !z-50 overflow-hidden hidden   w-[390px] isolate  text-white duration-300 opacity-0 group-hover:h-[460px] active:opacity-0  group-hover:-translate-y-10 bottom-0 group-hover:opacity-100  rounded-lg  right-1/2 translate-x-1/2 lg:block`}>  
       <div style={{ backgroundImage : `url(${img})` }} className="bg-cover bg-center w-full h-1/2">
       </div>
       <div className="bg-primary h-1/2 px-8 py-6">

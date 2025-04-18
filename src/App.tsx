@@ -13,6 +13,7 @@ import Subscription from "./pages/Subscription"
 import PembayaranSubscription from "./pages/PembayaranSubscription"
 import NotFound from "./pages/NotFound"
 import Testing from "./pages/Testing"
+import ScrollToTop from "./components/ScrollToTop"
 
 function App() {
 
@@ -20,9 +21,10 @@ function App() {
     <div className='bg-primary  overflow-x-hidden relative '>
       <Router>
           <Navbar />
+          <ScrollToTop />
           <Routes>
             <Route path='/' element={<HomePage />}/>
-            <Route path='/home' element={<HomePage />}/>
+            <Route path='/home' element={<Navigate to={"/"} replace/>}/>
             <Route path='/login' element={<LoginPage />}/>
             <Route path='/register' element={<RegisterPage />}/>
             <Route path='/daftarsaya' element={<DaftarSaya />}/>

@@ -1,14 +1,16 @@
-import banner_popup_detail_series from "/assets/img/series/banner_popup_detail_series.png";
-import Banner from "./Banner";
-import { faPlus} from "@fortawesome/free-solid-svg-icons";
 import DetailMovie from "../series/DetailMovie";
 import EpisodeList from "../series/EpisodeList";
 import { FC } from "react";
 import RekomendasiSerupa from "../film/RekomendasiSerupa";
+import BannerPopUpDetail from "./BannerPopUpDetail";
 
 type Props = {
   isPremium: boolean;
   isSeriesPage : boolean;
+  img_banner : string;
+  img_poster : string;
+  title : string;
+  overview : string
 };
 
 const dataEpisodeSeries = [
@@ -56,24 +58,22 @@ const dataEpisodeSeries = [
 
 const dataRekomendasiSerupa = ["/assets/img/home/3/card/card1.png","/assets/img/home/3/card/card3.png","/assets/img/home/3/card/card4.png"]
 
-const PopupDetail: FC<Props> = ({ isPremium, isSeriesPage }) => {
+const PopupDetail: FC<Props> = ({ isPremium, isSeriesPage, img_banner, title, overview, img_poster }) => {
 
   return (
-    <>
-      <Banner
+    <div className="pb-4">
+      <BannerPopUpDetail
         isPremium={isPremium}
-        isSelengkapnya={false}
-        icon={faPlus}
-        img={banner_popup_detail_series}
-        title="Ted Lasso"
+        img_banner={img_banner}
+        img_poster={img_poster}
+        title={title}
         selectGenre={false}
-      />
-       
-      <div className="px-4 text-white relative bottom-8 text-[10px] lg:px-16 ">
-        <DetailMovie />
+      />       
+      <div className="px-4 text-white relative mt-5 bottom-1 text-[10px] lg:px-16 lg:mt-10">
+        <DetailMovie overview={overview}/>
         {isSeriesPage ? <EpisodeList data={dataEpisodeSeries} /> : <RekomendasiSerupa data={dataRekomendasiSerupa}/>}
       </div>
-    </>
+    </div>
   );
 };
 

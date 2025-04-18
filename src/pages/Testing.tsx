@@ -1,19 +1,14 @@
+import { getData } from "@/lib/getData"
 import { useEffect, useState } from "react"
 
 
 const Testing = () => {
     
-    const [data, setData] = useState([])
+    const [data, setData] = useState([])    
     
-    const getData = async () => {
-        const res = await fetch(import.meta.env.VITE_TMDB_API + "avengers")
-        const json = await res.json()
-        setData(json.results)
-        console.log(json.results)
-    }
 
     useEffect(() => {
-        getData()
+        getData({ query : "Avengers", setData })
     },[])
 
   return (

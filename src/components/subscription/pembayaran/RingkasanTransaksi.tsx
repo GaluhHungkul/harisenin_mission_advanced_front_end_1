@@ -1,5 +1,6 @@
 import { FC } from "react";
 import TataCaraPembayaran from "./TataCaraPembayaran";
+import { useNavigate } from "react-router-dom";
 
 type Props = {
     paket : string;
@@ -12,6 +13,12 @@ const RingkasanTransaksi : FC<Props> = ({paket, harga, setIsFormPayment, isFormP
 
     const biayaAdmin = 3000
 
+    const nagigate = useNavigate()
+
+    const handleBayar = () => {
+        if(!isFormPayment) nagigate("/myprofile?isSubscribe=true")
+        else setIsFormPayment(false)
+    }
 
   return (
     <div className="text-white">
@@ -31,7 +38,7 @@ const RingkasanTransaksi : FC<Props> = ({paket, harga, setIsFormPayment, isFormP
             </div>
         </main>
         {!isFormPayment && <TataCaraPembayaran />}
-        <button onClick={() => setIsFormPayment(false)} className="bg-blue-900 px-6 py-2 rounded-full mt-4 text-lg cursor-pointer hover:brightness-90 active:brightness-75 lg:px-8">Bayar</button>
+        <button onClick={handleBayar} className="bg-blue-900 px-6 py-2 rounded-full mt-4 text-lg cursor-pointer hover:brightness-90 active:brightness-75 lg:px-8">Bayar</button>
     </div>
   )
 }
