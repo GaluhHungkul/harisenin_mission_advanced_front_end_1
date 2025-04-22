@@ -1,47 +1,54 @@
+import { deleteFromMyMovieList, getMyMovieList } from "@/services/api/tmdb"
 import { faTrash } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import {  useCallback, useEffect, useState } from "react"
+import {   useEffect, useState } from "react"
 
+type DataMovies = {
+  img : string;
+  title : string;
+  vote_average : number;
+  id : string;
+}
 
-const DaftarMovie = ({ length } : { length? : number }) => {
+const DaftarMovie = ({ length=50, disabled=false } : { length? : number, disabled? : boolean }) => {
 
-  const [data, setData] = useState<string[]>([])
+  const [data, setData] = useState<DataMovies[]>([]) 
 
-  const getDataImages = useCallback(() => {
-    const images = JSON.parse(localStorage.getItem("img_daftar_saya") ?? "[]") 
-    setData(images.slice(0, length ?? images.length))
-  },[length])
+  const [loading, setLoading] = useState<boolean>(false)
 
   useEffect(() => {
-    getDataImages()
-  },[getDataImages])  
+    const getData = async () => {
+      const results = await getMyMovieList(length)
+      setData(results)
+    }
+    getData()
+  },[length])  
 
-  const handleDeleteDaftarSaya = (value:string) => {
-    try {
-      const existedData = JSON.parse(localStorage.getItem("img_daftar_saya"))
-      const newData = existedData.filter((img) => img !== value)
-      localStorage.setItem("img_daftar_saya", JSON.stringify(newData))
-      alert("Data berhasil dihapus")
-      getDataImages()
-    } catch (error) {
-      console.log("error saat menghapus data" , error)
-      alert("Terdapat kesalahan dalam menghapus data")
-    } 
-  }
+  
 
   return (
     <div className="min-h-[70vh]">
        {data.length ? 
         <div className="grid grid-cols-3 justify-items-center  gap-4 lg:gap-y-8 lg:grid-cols-6">
-            {data.map((img, index) => (
+            {data.map((film, index) => (
               <section key={index} className={`relative  text-white rounded  w-24 h-36 lg:w-[200px] lg:h-[300px] overflow-hidden group duration-300`}>
-                <button onClick={() => handleDeleteDaftarSaya(img)} className="absolute duration-300 right-0 p-2  z-10   bg-white text-primary top-0 text-sm rounded opacity-0  group-hover:opacity-100 cursor-pointer font-bold "><FontAwesomeIcon icon={faTrash} /></button>
-                <img src={img} className="object-center object-cover size-full group-hover:scale-110 duration-300" alt="" />
+                {!disabled && <button disabled={loading} onClick={async () => {
+                  setLoading(true)
+                  await deleteFromMyMovieList(film.id)
+                  const newData = await getMyMovieList(length)
+                  setData(newData)
+                  setLoading(false)
+                }} className="absolute duration-300 right-0 p-2  z-20   bg-white text-primary top-0 text-sm rounded opacity-0  group-hover:opacity-100 cursor-pointer font-bold "><FontAwesomeIcon icon={faTrash} /></button>}
+                <div className={`absolute text-[10px] opacity-0 group-hover:opacity-100 p-2 bg-black/80 bottom-0 w-full duration-300  h-0 group-hover:h-1/2 z-10 lg:text-lg `}>
+                  <p className="line-clamp-1 lg:line-clamp-2 ">{film.title}</p>
+                  <p className="absolute bottom-2 right-4"><span className="text-yellow-500">{film.vote_average}</span> / 10</p>
+                </div>
+                <img src={film.img} className="object-center object-cover size-full  hover:scale-110   duration-300" alt={film.title} />
               </section>
             ))}
         </div>
         :
-        <div className="h-full  text-white font-bold text-lg pt-48 text-center lg:pt-40 lg:text-2xl">
+        <div className="h-full  text-white font-bold text-lg pt-48 text-centerlg:pt-40 lg:text-2xl">
           Daftar Film Anda Kosong
         </div>
         }

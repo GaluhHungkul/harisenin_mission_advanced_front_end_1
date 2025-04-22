@@ -1,19 +1,33 @@
 import { faFileArrowUp } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import FloatingLabelInput from "../tag/FloatingLabelInput"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 const ProfileCard = () => {
 
-    const storedUser = JSON.parse(localStorage.getItem("user") ?? "{}");
-    
-    const [namaPengguna, setNamaPengguna] = useState<string>(
-      storedUser.namaPengguna?.trim() ? storedUser.namaPengguna : "William"
-    );
-    const [email, setEmail] = useState<string>(JSON.parse(localStorage.getItem("user"))?.email ?? "william1980@gmail.com")
-    const [kataSandi, setKataSandi] = useState<string>(storedUser.kataSandi?.trim() ? storedUser.kataSandi : "acumalaka123")
 
-    const handleSaveProfile = () => localStorage.setItem("user", JSON.stringify({ namaPengguna, email, kataSandi }))
+    const [user, setUser] = useState({
+      username : "",
+      kataSandi : "",
+      email : ""
+    })
+
+    useEffect(() => {
+      const getUser = async () => {
+        const res = await fetch(`${import.meta.env.VITE_BASE_URL_MOCKAPI_USERS}/${localStorage.getItem("userId") ?? "1"}`)
+        const data = await res.json()
+        console.log(data)
+      }
+      getUser() 
+    },[])
+    
+    const handleChange = (e:React.ChangeEvent<HTMLInputElement>) => {
+      const { name, value } = e.target
+      setUser((prev) => ({
+        ...prev,
+        [name] : value
+      }))
+    }
 
   return (
     <div className=" lg:flex-1 ">
@@ -24,12 +38,12 @@ const ProfileCard = () => {
                 <p className="text-gray-400"><FontAwesomeIcon className="mr-2" icon={faFileArrowUp}/>Maksimal 2MB</p>
             </div>
         </main>
-        <main className="space-y-8">
-            <FloatingLabelInput showIcon label="Nama Pengguna" value={namaPengguna} onChange={(e) => setNamaPengguna(e.target.value)} type="text" id="namaPengguna"/>
-            <FloatingLabelInput showIcon label="Nama Pengguna" value={email} onChange={(e) => setEmail(e.target.value)} type="text" id="email"/>
-            <FloatingLabelInput showIcon label="Nama Pengguna" value={kataSandi} onChange={(e) => setKataSandi(e.target.value)} type="password" id="kataSandi"/>
-            <button onClick={handleSaveProfile} className="bg-blue-900 px-4 py-1 rounded-full cursor-pointer hover:brightness-90 active:brightness-75">Simpan</button>
-        </main>
+        <form className="space-y-8">
+            <FloatingLabelInput name="username" showIcon label="Nama Pengguna" value={user.username} onChange={handleChange} type="text" id="namaPengguna"/>
+            <FloatingLabelInput name="email" showIcon label="Email" value={user.email} onChange={handleChange} type="text" id="email"/>
+            <FloatingLabelInput name="kataSandi" showIcon label="Kata Sandi" value={user.kataSandi} onChange={handleChange} type="password" id="kataSandi"/>
+            <button  className="bg-blue-900 px-4 py-1 rounded-full cursor-pointer hover:brightness-90 active:brightness-75">Simpan</button>
+        </form>
     </div>
   )
 }

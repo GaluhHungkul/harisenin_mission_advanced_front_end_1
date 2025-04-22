@@ -11,6 +11,7 @@ type Props = {
   img_poster : string;
   title : string;
   overview : string
+  vote_average : number;
 };
 
 const dataEpisodeSeries = [
@@ -58,7 +59,7 @@ const dataEpisodeSeries = [
 
 const dataRekomendasiSerupa = ["/assets/img/home/3/card/card1.png","/assets/img/home/3/card/card3.png","/assets/img/home/3/card/card4.png"]
 
-const PopupDetail: FC<Props> = ({ isPremium, isSeriesPage, img_banner, title, overview, img_poster }) => {
+const PopupDetail: FC<Props> = ({ isPremium, isSeriesPage, img_banner, title, overview, img_poster, vote_average }) => {
 
   return (
     <div className="pb-4">
@@ -67,6 +68,7 @@ const PopupDetail: FC<Props> = ({ isPremium, isSeriesPage, img_banner, title, ov
         img_banner={img_banner}
         img_poster={img_poster}
         title={title}
+        vote_average={vote_average}
         selectGenre={false}
       />       
       <div className="px-4 text-white relative mt-5 bottom-1 text-[10px] lg:px-16 lg:mt-10">

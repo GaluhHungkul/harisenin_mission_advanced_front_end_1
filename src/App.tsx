@@ -12,14 +12,15 @@ import MyProfile from "./pages/MyProfile"
 import Subscription from "./pages/Subscription"
 import PembayaranSubscription from "./pages/PembayaranSubscription"
 import NotFound from "./pages/NotFound"
-import Testing from "./pages/Testing"
 import ScrollToTop from "./components/ScrollToTop"
+import { Toaster } from "react-hot-toast"
 
 function App() {
 
   return (
     <div className='bg-primary  overflow-x-hidden relative '>
       <Router>
+          <Toaster position="top-right" reverseOrder={false}/>
           <Navbar />
           <ScrollToTop />
           <Routes>
@@ -34,7 +35,6 @@ function App() {
             <Route path="/myprofile" element={<MyProfile />}/>
             <Route path="/subscription" element={<Subscription />}/>
             <Route path="/subscription/pembayaran" element={<PembayaranSubscription />}/>
-            <Route path="/testing" element={<Testing />}/>
             <Route path="/404" element={<NotFound />}/>
             <Route path="*" element={<Navigate to="/404" replace />}/>
           </Routes>

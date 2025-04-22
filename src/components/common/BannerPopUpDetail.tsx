@@ -1,3 +1,4 @@
+import { addToMyMovieList } from "@/services/api/tmdb"
 import { faPlus, faVolumeHigh, faVolumeXmark } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon,    } from "@fortawesome/react-fontawesome"
 import { FC, useState } from "react"
@@ -8,27 +9,15 @@ type Props = {
     selectGenre : boolean;
     title? : string;
     isPremium : boolean;
-    img_poster : string
+    img_poster : string;
+    vote_average : number
 }
 
-const BannerPopUpDetail : FC<Props> = ({img_banner,  title, isPremium, img_poster}) => {
+const BannerPopUpDetail : FC<Props> = ({img_banner,  title, isPremium, img_poster, vote_average}) => {
 
-    const [isVolumeOn, setIsVolumeOn] = useState(false)    
-
-
-    const handleAddLocalStorage = (value:string) => {
-        try {
-            const existingData = JSON.parse(localStorage.getItem("img_daftar_saya")) ?? []
-            if(existingData.includes(value)) return alert("Data film sudah ada")
-            existingData.push(value)
-            localStorage.setItem("img_daftar_saya", JSON.stringify(existingData))
-            alert("Film telah ditambahkan ke daftar anda ")
-        } catch (error) {
-            console.log(error)
-            alert("Terjadi kesalahan saat menambahkan film ke daftar anda ")
-        }
-    }
-
+    const [isVolumeOn, setIsVolumeOn] = useState(false)        
+   
+    const [loading, setLoading] = useState<boolean>(false)
 
   return (
     <div className="w-full h-[190px] pt-10 lg:h-[500px] relative p-4 lg:px-16 bg-cover bg-center bg-no-repeat   " style={{ backgroundImage: `url(${img_banner})` }}>
@@ -38,7 +27,11 @@ const BannerPopUpDetail : FC<Props> = ({img_banner,  title, isPremium, img_poste
             <section className="flex items-center text-sm lg:text-base justify-between w-full lg:mt-5 ">
                 <div className="flex gap-[8px] lg:gap-[10px]">
                     <Link to={`/watch?episode=1`}  className="lg:px-[26px] lg:py-[10px]  rounded-full text-[12px] py-1 px-3 bg-blue-800 hover:bg-blue-900 lg:text-[16px] active:bg-blue-700">Mulai</Link>
-                    <span onClick={() => handleAddLocalStorage(img_poster)} className="text-[12px] font-bold rounded-full bg-primary px-2 py-1 lg:py-[10px] lg:px-4 lg:text-[16px] hover:bg-slate-800 active:bg-slate-900 cursor-pointer"><FontAwesomeIcon icon={faPlus}/></span>
+                    <button disabled={loading} onClick={async () => {
+                        setLoading(true)
+                        addToMyMovieList({title, img : img_poster, vote_average})
+                        setLoading(false)
+                    }} className="text-[12px] font-bold rounded-full bg-primary px-2 py-1 lg:py-[10px] lg:px-4 lg:text-[16px] hover:bg-slate-800 active:bg-slate-900 cursor-pointer"><FontAwesomeIcon icon={faPlus}/></button>
                     {isPremium && 
                     <span className="bg-yellow-600 text-[8px] rounded-full px-2 content-center lg:text-base lg:px-3">
                         Premium

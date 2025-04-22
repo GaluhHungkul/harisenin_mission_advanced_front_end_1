@@ -1,7 +1,7 @@
-import { getAllData } from "@/lib/getAllData";
 import { FilmtmbdApi, ListDataPerPage } from "@/types/allTypes";
 import { FC, useEffect, useState } from "react";
 import FilmList from "./FilmList";
+import { getAllData } from "@/services/api/tmdb";
 
 type Props = {
     data : ListDataPerPage[]

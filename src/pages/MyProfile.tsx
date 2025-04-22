@@ -16,7 +16,7 @@ const MyProfile = () => {
                 <h1 className="font-bold text-[20px]  text-white my-5 lg:text-[32px]">Daftar Saya</h1>
                 <Link className="text-gray-300 text-sm" to={"/daftarsaya"}>Lihat Semua</Link>
             </header>
-            <DaftarMovie length={6}/>
+            <DaftarMovie length={6} disabled/>
         </div>
     </div>
   )

@@ -72,7 +72,7 @@ const FilmList: FC<Props> = ({ title, data, isVertical, index }) => {
             {!disabelModalDetail && (
               <DialogContent className="w-80  min-h-[680px] bg-primary p-0 border-none  flex flex-col border lg:w-[933px] lg:max-w-screen overflow-x-hidden lg:max-h-[90vh] overflow-y-auto  lg:h-[1568px]  ">
                 <DialogTitle className="sr-only">Detail Movie</DialogTitle>                
-                <PopupDetail overview={film.overview} img_banner={film.backdrop_path} img_poster={film.poster_path} title={film.title} isPremium={index % 2 === 0} isSeriesPage={location.pathname === '/series'} />
+                <PopupDetail vote_average={film.vote_average} overview={film.overview} img_banner={film.backdrop_path} img_poster={film.poster_path} title={film.title} isPremium={index % 2 === 0} isSeriesPage={location.pathname === '/series'} />
               </DialogContent>
             )}
           </Dialog>  
