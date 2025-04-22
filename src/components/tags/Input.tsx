@@ -9,7 +9,11 @@ type Props = {
 
 const Input  = forwardRef<HTMLInputElement, Props> ((props, ref) => {
   return (
-    <input className="border w-full text-[10px] lg:text-lg border-slate-300 rounded-full px-4 py-1" />
+    <input
+      {...props}
+      ref={ref}
+      className="border w-full text-[10px] lg:text-lg border-slate-300 rounded-full px-4 py-1"
+    />
   )
 })
 

@@ -1,5 +1,6 @@
-import { FC,  useState } from 'react'
+import { FC,  useRef } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import Input from './tags/Input'
 import google from "/assets/img/others/google.png"
 import axios from "axios"
 
@@ -9,19 +10,15 @@ type Props = {
 
 const AuthCard: FC<Props> = ({isLogin}) => {
 
-  const [username, setUsername] = useState<string>("")  
-  const [kataSandi, setKataSandi] = useState<string>("")
-  const [confirmSandi, setConfirmSandi] = useState<string>("")
+
+  const namaPengguna = useRef<HTMLInputElement>(null)
+  const kataSandi = useRef<HTMLInputElement>(null)
+
 
   const navigate = useNavigate()
 
   const handleSubmit = async () => {
-    if(kataSandi !== confirmSandi) return
-    const res = await axios.post(import.meta.env.VITE_BASE_URL_MOCKAPI_USERS, {
-      username, kataSandi,
-      isSubscribe : false,
-      daftarFilmSaya : []
-    })
+   
     
   }
 
@@ -39,12 +36,13 @@ const AuthCard: FC<Props> = ({isLogin}) => {
     <form onSubmit={handleSubmit}  className="w-full space-y-5">
       <label htmlFor="username" className="flex flex-col gap-1">
         <span className="text-[10px] lg:text-lg">Username</span>
-        <input onChange={(e) => setUsername(e.target.value)} className="border w-full text-[10px] lg:text-lg border-slate-300 rounded-full px-4 py-1" placeholder='Masukkan username' />
+
+        <Input ref={namaPengguna} id='username' placeholder='Masukkan username ' type='text'/>
         </label>
       <label htmlFor="KataSandi" className="flex flex-col gap-1">
         <span className="text-[10px] lg:text-lg">kata Sandi</span>
         <div className="relative w-full ">
-          <input onChange={(e) => setKataSandi(e.target.value)} className="border w-full text-[10px] lg:text-lg border-slate-300 rounded-full px-4 py-1" placeholder='Masukkan kata sandi' />
+        <Input ref={kataSandi} id='KataSandi' placeholder='Masukkan Kata Sandi' type='password'/>
           <span className="absolute right-3 cursor-pointer top-1">
             <i className="fa-solid fa-eye-slash"></i>
           </span>
@@ -56,7 +54,8 @@ const AuthCard: FC<Props> = ({isLogin}) => {
             Konfirmasi Kata Sandi
           </span>
           <div className="relative w-full ">
-            <input onChange={(e) => setConfirmSandi(e.target.value)} className="border w-full text-[10px] lg:text-lg border-slate-300 rounded-full px-4 py-1" placeholder='Masukkan kata sandi' />
+
+          <Input id='KonfirmasiKataSandi' placeholder='Konfirmasi Kata Sandi' type='password'/>
             <span className="absolute right-3 cursor-pointer top-1">
               <i className="fa-solid fa-eye-slash"></i>
             </span>
