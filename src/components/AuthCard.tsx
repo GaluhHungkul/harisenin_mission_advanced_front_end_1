@@ -1,6 +1,5 @@
 import { FC, useRef } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import Input from './tags/Input'
 import google from "/assets/img/others/google.png"
 
 type Props = {
@@ -10,6 +9,7 @@ type Props = {
 const AuthCard: FC<Props> = ({isLogin}) => {
 
   const namaPengguna = useRef<HTMLInputElement>(null)
+  
   const kataSandi = useRef<HTMLInputElement>(null)
 
   const navigate = useNavigate()
@@ -38,12 +38,12 @@ const AuthCard: FC<Props> = ({isLogin}) => {
     <form  className="w-full space-y-5">
       <label htmlFor="username" className="flex flex-col gap-1">
         <span className="text-[10px] lg:text-lg">Username</span>
-        <Input ref={namaPengguna} id='username' placeholder='Masukkan username ' type='text'/>
+        <input className="border w-full text-[10px] lg:text-lg border-slate-300 rounded-full px-4 py-1" placeholder='Masukkan username' />
         </label>
       <label htmlFor="KataSandi" className="flex flex-col gap-1">
         <span className="text-[10px] lg:text-lg">kata Sandi</span>
         <div className="relative w-full ">
-        <Input ref={kataSandi} id='KataSandi' placeholder='Masukkan Kata Sandi' type='password'/>
+          <input className="border w-full text-[10px] lg:text-lg border-slate-300 rounded-full px-4 py-1" placeholder='Masukkan kata sandi' />
           <span className="absolute right-3 cursor-pointer top-1">
             <i className="fa-solid fa-eye-slash"></i>
           </span>
@@ -55,7 +55,7 @@ const AuthCard: FC<Props> = ({isLogin}) => {
             Konfirmasi Kata Sandi
           </span>
           <div className="relative w-full ">
-          <Input id='KonfirmasiKataSandi' placeholder='Konfirmasi Kata Sandi' type='password'/>
+            <input className="border w-full text-[10px] lg:text-lg border-slate-300 rounded-full px-4 py-1" placeholder='Masukkan kata sandi' />
             <span className="absolute right-3 cursor-pointer top-1">
               <i className="fa-solid fa-eye-slash"></i>
             </span>
