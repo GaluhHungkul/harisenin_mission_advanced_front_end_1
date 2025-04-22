@@ -2,7 +2,6 @@ import { FC,  useRef } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import Input from './tags/Input'
 import google from "/assets/img/others/google.png"
-import axios from "axios"
 
 type Props = {
     isLogin : boolean
@@ -18,8 +17,11 @@ const AuthCard: FC<Props> = ({isLogin}) => {
   const navigate = useNavigate()
 
   const handleSubmit = async () => {
-   
-    
+   localStorage.setItem("user" ,JSON.stringify({
+    namaPengguna : namaPengguna.current.value ?? "william1980@gmail.com",
+    email :  "william1980@gmail.com",
+    kataSandi : kataSandi.current.value ?? "acumalaka123"
+   }))
   }
 
   return (
