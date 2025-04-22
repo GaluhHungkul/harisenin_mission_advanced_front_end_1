@@ -1,6 +1,7 @@
-import { FC, useRef } from 'react'
+import { FC,  useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import google from "/assets/img/others/google.png"
+import axios from "axios"
 
 type Props = {
     isLogin : boolean
@@ -8,20 +9,20 @@ type Props = {
 
 const AuthCard: FC<Props> = ({isLogin}) => {
 
-  const namaPengguna = useRef<HTMLInputElement>(null)
-  
-  const kataSandi = useRef<HTMLInputElement>(null)
+  const [username, setUsername] = useState<string>("")  
+  const [kataSandi, setKataSandi] = useState<string>("")
+  const [confirmSandi, setConfirmSandi] = useState<string>("")
 
   const navigate = useNavigate()
 
-  const handleLogin = () => {
-    localStorage.setItem("user", JSON.stringify({
-      namaPengguna : namaPengguna.current.value ?? "William",
-      kataSandi : kataSandi.current.value ?? "acumalaka123",
-      email : "william1980@gmail.com"
-    }))
-    console.log(JSON.parse(localStorage.getItem("user")))
-    navigate(isLogin ? "/" : "/login")
+  const handleSubmit = async () => {
+    if(kataSandi !== confirmSandi) return
+    const res = await axios.post(import.meta.env.VITE_BASE_URL_MOCKAPI_USERS, {
+      username, kataSandi,
+      isSubscribe : false,
+      daftarFilmSaya : []
+    })
+    
   }
 
   return (
@@ -35,15 +36,15 @@ const AuthCard: FC<Props> = ({isLogin}) => {
         </p>
       </section>
     </header>
-    <form  className="w-full space-y-5">
+    <form onSubmit={handleSubmit}  className="w-full space-y-5">
       <label htmlFor="username" className="flex flex-col gap-1">
         <span className="text-[10px] lg:text-lg">Username</span>
-        <input className="border w-full text-[10px] lg:text-lg border-slate-300 rounded-full px-4 py-1" placeholder='Masukkan username' />
+        <input onChange={(e) => setUsername(e.target.value)} className="border w-full text-[10px] lg:text-lg border-slate-300 rounded-full px-4 py-1" placeholder='Masukkan username' />
         </label>
       <label htmlFor="KataSandi" className="flex flex-col gap-1">
         <span className="text-[10px] lg:text-lg">kata Sandi</span>
         <div className="relative w-full ">
-          <input className="border w-full text-[10px] lg:text-lg border-slate-300 rounded-full px-4 py-1" placeholder='Masukkan kata sandi' />
+          <input onChange={(e) => setKataSandi(e.target.value)} className="border w-full text-[10px] lg:text-lg border-slate-300 rounded-full px-4 py-1" placeholder='Masukkan kata sandi' />
           <span className="absolute right-3 cursor-pointer top-1">
             <i className="fa-solid fa-eye-slash"></i>
           </span>
@@ -55,7 +56,7 @@ const AuthCard: FC<Props> = ({isLogin}) => {
             Konfirmasi Kata Sandi
           </span>
           <div className="relative w-full ">
-            <input className="border w-full text-[10px] lg:text-lg border-slate-300 rounded-full px-4 py-1" placeholder='Masukkan kata sandi' />
+            <input onChange={(e) => setConfirmSandi(e.target.value)} className="border w-full text-[10px] lg:text-lg border-slate-300 rounded-full px-4 py-1" placeholder='Masukkan kata sandi' />
             <span className="absolute right-3 cursor-pointer top-1">
               <i className="fa-solid fa-eye-slash"></i>
             </span>
@@ -77,7 +78,7 @@ const AuthCard: FC<Props> = ({isLogin}) => {
         </section>
     </form>
     <section className="flex items-center flex-col  w-full text-[10px] lg:text-[16px]">
-      <button  onClick={handleLogin} className=" bg-white/30  font-semibold w-full rounded-full py-2 hover:bg-zinc-700 active:bg-zinc-800 cursor-pointer disabled:bg-zinc-800">
+      <button onClick={handleSubmit} className=" bg-white/30  font-semibold w-full rounded-full py-2 hover:bg-zinc-700 active:bg-zinc-800 cursor-pointer disabled:bg-zinc-800">
         {isLogin ? "Login" :"Daftar"}
       </button>
       <span className="text-gray-400 my-1">Atau</span>
