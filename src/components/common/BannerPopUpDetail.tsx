@@ -19,6 +19,8 @@ const BannerPopUpDetail : FC<Props> = ({img_banner,  title, isPremium, img_poste
    
     const [loading, setLoading] = useState<boolean>(false)
 
+    
+
   return (
     <div className="w-full h-[190px] pt-10 lg:h-[500px] relative p-4 lg:px-16 bg-cover bg-center bg-no-repeat   " style={{ backgroundImage: `url(${img_banner})` }}>
         <div className="w-full  h-max top-10 relative  mt-10 text-white flex flex-col lg:top-60  gap-3 lg:w-full lg:h-max  lg:gap-3  lg:mx-auto">

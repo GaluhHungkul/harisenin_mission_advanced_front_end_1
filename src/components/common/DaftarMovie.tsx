@@ -48,7 +48,7 @@ const DaftarMovie = ({ length=50, disabled=false } : { length? : number, disable
             ))}
         </div>
         :
-        <div className="h-full  text-white font-bold text-lg pt-48 text-centerlg:pt-40 lg:text-2xl">
+        <div className="h-full  text-white font-bold text-lg pt-48 text-center lg:pt-40 lg:text-2xl">
           Daftar Film Anda Kosong
         </div>
         }

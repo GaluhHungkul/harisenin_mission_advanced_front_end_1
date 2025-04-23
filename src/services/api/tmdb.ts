@@ -116,3 +116,25 @@ export const deleteFromMyMovieList = async (id:string) => {
     toast.dismiss(loadingToast)
   }
 }
+
+export const changeProfile = async ({username, email, kataSandi,id} : { username : string; email : string; kataSandi : string; id : string }) => {
+  const loadingToast = toast.loading("Mengubah data...")
+  try {
+    const res = await fetch(`${import.meta.env.VITE_BASE_URL_MOCKAPI_USERS}/${id}`, {
+      method : "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body : JSON.stringify({
+        username, email, kataSandi
+      })
+    })
+    if(!res.ok) throw new Error("Gagal mengubah data")
+    toast.success("Data berhasil diubah")
+    toast.dismiss(loadingToast)
+  } catch (error) {
+    console.log("Error : " , error)
+    toast.error("Terjadi kesalahan saat mengubah data, coba lagi nanti")
+    toast.dismiss(loadingToast)
+  }
+}
