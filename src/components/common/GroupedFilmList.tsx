@@ -9,12 +9,16 @@ type Props = {
 
 const GroupedFilmList : FC<Props> = ({data}) => {
 
-    const [allData, setAllData] = useState<{ title: string; data: FilmtmbdApi[] }[]>(
-        []
-      );
+    const [allData, setAllData] = useState<{ title: string; data: FilmtmbdApi[] }[]>([]);
     
+    const [loadingCard, setLoadingCard] = useState<boolean>(true)
+
     useEffect(() => {
-        getAllData(data, setAllData)
+      const fetchAllMovies = async () => {
+        await getAllData(data, setAllData)
+        setLoadingCard(false)
+      }
+      fetchAllMovies()
     }, [data]);
     
 
@@ -27,6 +31,7 @@ const GroupedFilmList : FC<Props> = ({data}) => {
               title={data?.title}
               index={index}
               isVertical={index !== 0}
+              loadingCard={loadingCard}
             />
           </div>
         ))}

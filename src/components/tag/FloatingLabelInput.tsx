@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPen } from '@fortawesome/free-solid-svg-icons';
+import { faPen, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 interface FloatingLabelInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   id: string;
@@ -22,22 +22,40 @@ const FloatingLabelInput: React.FC<FloatingLabelInputProps> = ({
   showIcon = false,
   ...props
 }) => {
+  const [showPassword, setShowPassword] = useState(false);
+  const isPassword = type === 'password';
+
+  const togglePassword = () => {
+    setShowPassword((prev) => !prev);
+  };
+
   return (
-    <div className={`relative w-full text-white  ${className} bg-[#22282A]`}>
-      {showIcon && (
+    <div className={`relative w-full text-white ${className} bg-[#22282A]`}>
+      {/* Icon tulis (faPen) */}
+      {showIcon && !isPassword && (
         <FontAwesomeIcon
           icon={faPen}
-          className="absolute right-3  top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4 pointer-events-none"
+          className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4 pointer-events-none"
         />
       )}
+
+      {/* Icon password toggle */}
+      {isPassword && (
+        <FontAwesomeIcon
+          icon={showPassword ? faEyeSlash : faEye}
+          className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4 cursor-pointer"
+          onClick={togglePassword}
+        />
+      )}
+
       <input
         id={id}
-        type={type}
+        type={isPassword ? (showPassword ? 'text' : 'password') : type}
         placeholder=" "
         value={value}
         onChange={onChange}
         className={`peer w-full border border-gray-300 rounded-md px-3 pt-6 pb-2 text-sm focus:outline-none focus:border-blue-500 lg:text-base ${
-          showIcon ? 'pr-10' : ''
+          (showIcon || isPassword) ? 'pr-10' : ''
         }`}
         {...props}
       />

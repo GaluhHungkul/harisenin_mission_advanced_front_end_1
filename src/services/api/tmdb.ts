@@ -172,10 +172,10 @@ export const changeProfile = async ({username, email, kataSandi,id} : { username
     })
     if(!res.ok) throw new Error("Gagal mengubah data")
     toast.success("Data berhasil diubah")
-    toast.dismiss(loadingToast)
   } catch (error) {
     console.log("Error : " , error)
     toast.error("Terjadi kesalahan saat mengubah data, coba lagi nanti")
+  } finally {
     toast.dismiss(loadingToast)
   }
 }

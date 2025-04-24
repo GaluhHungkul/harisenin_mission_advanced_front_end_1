@@ -18,7 +18,7 @@ const DataBanner = [
     {
         title : "Happiness",
         img : "/assets/img/series/banner_series.png",
-        synopsis : "Mengisahkan tentang sekelompok orang yang berjunag untuk bertahan hidup di dalam sebuah gedung apartemen yang penuh dengan zombie. Sayangnya, virus zombie hanya terdapat di dalam area apartemen tersebut dan tidak menyebar ke luar kawasan apartemen.",
+        synopsis : "Mengisahkan tentang sekelompok orang yang berjuang untuk bertahan hidup di dalam sebuah gedung apartemen yang penuh dengan zombie. Sayangnya, virus zombie hanya terdapat di dalam area apartemen tersebut dan tidak menyebar ke luar kawasan apartemen.",
         href : "/watch?film=happiness&episode=1"
     },
     {
