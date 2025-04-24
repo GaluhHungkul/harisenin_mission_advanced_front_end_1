@@ -10,8 +10,8 @@ const VoucherInput = () => {
         if(!voucher.length) return toast.error("Masukkan kode voucher terlebih dahulu")
         const processToast = toast.loading("Memproses kode voucher...")
         setTimeout(() => {
-            toast.dismiss(processToast)
-            toast.success("Kode voucher berhasil digunakan")
+          toast.dismiss(processToast)
+          toast.success("Kode voucher berhasil digunakan")
         }, 1000);
       }
 
