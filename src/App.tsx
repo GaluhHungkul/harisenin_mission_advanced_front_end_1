@@ -14,21 +14,20 @@ import PembayaranSubscription from "./pages/PembayaranSubscription"
 import NotFound from "./pages/NotFound"
 import ScrollToTop from "./components/ScrollToTop"
 import { Toaster } from "react-hot-toast"
-import AuthGuard from "./components/AuthGuard"
 
 function App() {
 
-  
   return (
     <div className='bg-primary  overflow-x-hidden relative '>
       <Router>
           <Toaster position="top-right" reverseOrder={false}/>
           <Navbar />
           <ScrollToTop />
-          <AuthGuard>
           <Routes>
             <Route path='/' element={<HomePage />}/>
             <Route path='/home' element={<Navigate to={"/"} replace/>}/>
+            <Route path='/login' element={<LoginPage />}/>
+            <Route path='/register' element={<RegisterPage />}/>
             <Route path='/daftarsaya' element={<DaftarSaya />}/>
             <Route path='/series' element={<Series />}/>
             <Route path='/film' element={<Film />}/>
@@ -37,11 +36,8 @@ function App() {
             <Route path="/subscription" element={<Subscription />}/>
             <Route path="/subscription/pembayaran" element={<PembayaranSubscription />}/>
             <Route path="/404" element={<NotFound />}/>
-            <Route path='/login' element={<LoginPage />}/>
-            <Route path='/register' element={<RegisterPage />}/>
             <Route path="*" element={<Navigate to="/404" replace />}/>
           </Routes>
-          </AuthGuard>
           <Footer />
       </Router>
     </div>
