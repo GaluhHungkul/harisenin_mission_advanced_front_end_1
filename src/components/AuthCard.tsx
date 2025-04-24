@@ -68,7 +68,7 @@ const AuthCard: FC<Props> = ({isLogin}) => {
       <label htmlFor="KataSandi" className="flex flex-col gap-1 lg:gap-2">
         <span className="text-[10px] lg:text-lg">kata Sandi</span>
         <div className="relative w-full ">
-        <Input ref={kataSandi} id='KataSandi' placeholder='Masukkan Kata Sandi' type='password'/>
+        <Input ref={kataSandi} id='KataSandi'  placeholder='Masukkan Kata Sandi' type='password'/>
           <span className="absolute right-3 cursor-pointer top-1">
             <i className="fa-solid fa-eye-slash"></i>
           </span>

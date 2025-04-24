@@ -2,7 +2,9 @@ import { FetchedAllData, ListDataPerPage } from "@/types/allTypes";
 import { FilmtmbdApi } from "@/types/allTypes";
 import toast  from "react-hot-toast"
 
-export const getData = async (query: string): Promise<FilmtmbdApi[]> => {
+const getId = () => localStorage.getItem("userId") ?? "1"
+
+export const getMovieData = async (query: string): Promise<FilmtmbdApi[]> => {
   try {
     const separator = query.includes("?") ? "&" : "?"
     const res = await fetch(`${import.meta.env.VITE_TMDB_API}${query}${separator}api_key=${import.meta.env.VITE_TMDB_API_KEY}`);
@@ -14,7 +16,7 @@ export const getData = async (query: string): Promise<FilmtmbdApi[]> => {
       throw new Error("Invalid data format");
     }
 
-    return data.results.slice(10); 
+    return data.results.slice(0,10); 
   } catch (error) {
     console.error("getData error:", error);
     return []; 
@@ -25,7 +27,7 @@ export const getAllData = async (data: ListDataPerPage[], setter: (value: Fetche
   try {
     const responses = await Promise.all(
         data.map(async (list) => {
-          const res = await getData(list.query);
+          const res = await getMovieData(list.query);
           const fallbacked = res.map((film) => ({
             ...film,
             backdrop_path: film.backdrop_path
@@ -43,7 +45,6 @@ export const getAllData = async (data: ListDataPerPage[], setter: (value: Fetche
           };
         })
       );
-      console.log(responses)
       setter(responses);
   } catch (error) {
     console.log("Error fetchAll Data : " , error)
@@ -54,17 +55,32 @@ export const getAllData = async (data: ListDataPerPage[], setter: (value: Fetche
   }
 };
 
-export const getMyMovieList = async (length=50) => {
+export const getMyMovieList = async () => {
     try {
-        const res = await fetch(import.meta.env.VITE_BASE_URL_MOCKAPI_MYMOVIELIST)
+        const id = getId()
+        const res = await fetch(`${import.meta.env.VITE_BASE_URL_MOCKAPI_USERS}/${id}`)
         if(!res.ok) throw new Error("Gagal mengambil data")
         const data = await res.json()
-        console.log(data)
-        return data.slice(0,length)
+        return data.listMovie
     } catch (error) {
         console.log("Error : " , error)
         return []
     }
+}
+
+export const getMyProfile = async () => {
+  
+  try {
+    const id = getId()
+    const res = await fetch(`${import.meta.env.VITE_BASE_URL_MOCKAPI_USERS}/${id}`)
+    if(!res.ok) throw new Error("Gagal mengambil data")
+    const data = await res.json()
+    return data
+  }
+  catch (error) {
+    console.log("Error : " , error)
+    toast.error("Terjadi kesalahan saat mengambil data, coba lagi nanti")
+  }
 }
 
 export const addToMyMovieList = async ({title, img, vote_average} : { title : string, img : string, vote_average : number }) => {
@@ -72,21 +88,29 @@ export const addToMyMovieList = async ({title, img, vote_average} : { title : st
   const loadingToast = toast.loading("Menambahkan movie...")
 
     try {
-        const checkExist = await getMyMovieList()
-        const isExist = checkExist.some((film) => film.title === title)
+        const id = getId()
+
+        const user = await getMyProfile()
+        if(!user) throw new Error("Gagal mengambil data user")
+        const isExist = user.listMovie.some((film) => film.title === title)
         if(isExist) {
           toast.error("Film sudah ada di dalam list movie anda")
           toast.dismiss(loadingToast)
           return
         }
 
-        const res = await fetch(import.meta.env.VITE_BASE_URL_MOCKAPI_MYMOVIELIST, {
-            method : "POST",
+        const newMovie = {
+          title, img, vote_average,
+        }
+
+        const res = await fetch(`${import.meta.env.VITE_BASE_URL_MOCKAPI_USERS}/${id}`, {
+            method : "PUT",
             headers: {
                 "Content-Type": "application/json"
             },
             body : JSON.stringify({
-                title, img, vote_average
+                ...user,
+                listMovie : [...user.listMovie, newMovie]
             })
         })
         if(!res.ok) throw new Error("Gagal menambahkan data")
@@ -97,15 +121,32 @@ export const addToMyMovieList = async ({title, img, vote_average} : { title : st
         toast.error("Terjadi kesalahan saat menambahkan film, coba lagi nanti")
         toast.dismiss(loadingToast)
       }
-    }
+}
     
 export const deleteFromMyMovieList = async (id:string) => {
       
   const loadingToast = toast.loading("menghapus movie...")
       
   try {
+
+    const user = await getMyProfile()
+    if(!user) throw new Error("Gagal mengambil data user")
+    const isExist = user.listMovie.some((film) => film.id === id)
+    if(!isExist) {
+      toast.error("Film tidak ada di dalam list movie anda")
+      toast.dismiss(loadingToast)
+      return
+    }
+    const newMovie = user.listMovie.filter((film) => film.id !== id)
     const res = await fetch(`${import.meta.env.VITE_BASE_URL_MOCKAPI_MYMOVIELIST}/${id}`, {
-      method : "DELETE"
+      method : "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body : JSON.stringify({
+        ...user,
+        listMovie : newMovie
+      })
     })
     if(!res.ok) throw new Error("Gagal menghapus film dari list")
     toast.success("Film berhasil dihapus dari list anda")

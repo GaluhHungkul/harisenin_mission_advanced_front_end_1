@@ -18,24 +18,22 @@ const DaftarMovie = ({ length=50, disabled=false } : { length? : number, disable
 
   useEffect(() => {
     const getData = async () => {
-      const results = await getMyMovieList(length)
+      const results = await getMyMovieList()
       setData(results)
     }
     getData()
-  },[length])  
-
-  
+  },[length])    
 
   return (
     <div className="min-h-[70vh]">
        {data.length ? 
         <div className="grid grid-cols-3 justify-items-center  gap-4 lg:gap-y-8 lg:grid-cols-6">
-            {data.map((film, index) => (
+            {data.slice(0,length).map((film, index) => (
               <section key={index} className={`relative  text-white rounded  w-24 h-36 lg:w-[200px] lg:h-[300px] overflow-hidden group duration-300`}>
                 {!disabled && <button disabled={loading} onClick={async () => {
                   setLoading(true)
                   await deleteFromMyMovieList(film.id)
-                  const newData = await getMyMovieList(length)
+                  const newData = await getMyMovieList()
                   setData(newData)
                   setLoading(false)
                 }} className="absolute duration-300 right-0 p-2  z-20   bg-white text-primary top-0 text-sm rounded opacity-0  group-hover:opacity-100 cursor-pointer font-bold "><FontAwesomeIcon icon={faTrash} /></button>}

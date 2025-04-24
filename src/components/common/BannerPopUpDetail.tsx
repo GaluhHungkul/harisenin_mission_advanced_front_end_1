@@ -17,9 +17,7 @@ const BannerPopUpDetail : FC<Props> = ({img_banner,  title, isPremium, img_poste
 
     const [isVolumeOn, setIsVolumeOn] = useState(false)        
    
-    const [loading, setLoading] = useState<boolean>(false)
-
-    
+    const [loading, setLoading] = useState<boolean>(false)    
 
   return (
     <div className="w-full h-[190px] pt-10 lg:h-[500px] relative p-4 lg:px-16 bg-cover bg-center bg-no-repeat   " style={{ backgroundImage: `url(${img_banner})` }}>
@@ -28,10 +26,10 @@ const BannerPopUpDetail : FC<Props> = ({img_banner,  title, isPremium, img_poste
             ">{title}</p>}
             <section className="flex items-center text-sm lg:text-base justify-between w-full lg:mt-5 ">
                 <div className="flex gap-[8px] lg:gap-[10px]">
-                    <Link to={`/watch?episode=1`}  className="lg:px-[26px] lg:py-[10px]  rounded-full text-[12px] py-1 px-3 bg-blue-800 hover:bg-blue-900 lg:text-[16px] active:bg-blue-700">Mulai</Link>
+                    <Link to={`/watch?episode=1&film=${title}`}  className="lg:px-[26px] lg:py-[10px]  rounded-full text-[12px] py-1 px-3 bg-blue-800 hover:bg-blue-900 lg:text-[16px] active:bg-blue-700">Mulai</Link>
                     <button disabled={loading} onClick={async () => {
                         setLoading(true)
-                        addToMyMovieList({title, img : img_poster, vote_average})
+                        await addToMyMovieList({title, img : img_poster, vote_average})
                         setLoading(false)
                     }} className="text-[12px] font-bold rounded-full bg-primary px-2 py-1 lg:py-[10px] lg:px-4 lg:text-[16px] hover:bg-slate-800 active:bg-slate-900 cursor-pointer"><FontAwesomeIcon icon={faPlus}/></button>
                     {isPremium && 
